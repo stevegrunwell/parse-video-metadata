@@ -15,6 +15,33 @@
 namespace ParseVideoMetadata;
 
 /**
+ * Retrieve the creation timestamp out of a video upon upload.
+ *
+ * @param array $metadata      An array of attachment meta data.
+ * @param int   $attachment_id Current attachment ID.
+ */
+function get_video_metadata( $metadata, $attachment_id ) {
+	if ( ! wp_attachment_is( 'video', $attachment_id ) ) {
+		return $metadata;
+	}
+
+	if ( ! class_exists( 'getID3', false ) ) {
+		require_once ABSPATH . WPINC . '/ID3/getid3.php';
+	}
+
+	$file = get_attached_file( $attachment_id );
+	$id3  = new \getID3();
+	$data = $id3->analyze( $file );
+
+	if ( empty( $metadata['created_timestamp'] ) ) {
+		$metadata['created_timestamp'] = wp_get_media_creation_timestamp( $data );
+	}
+
+	return $metadata;
+}
+add_filter( 'wp_generate_attachment_metadata', __NAMESPACE__ . '\get_video_metadata', 10, 2 );
+
+/**
  * Attempt to parse a date out of ID3 data.
  *
  * The getID3 library doesn't have a standard method for getting creation dates,
