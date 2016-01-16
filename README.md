@@ -1,3 +1,11 @@
+# Parse Video Metadata
+
+This plugin attempts to parse a video's creation date out of the meta data at the time of upload.
+
+This functionality has been proposed for inclusion in WordPress Core in [Trac ticket #35218](https://core.trac.wordpress.org/attachment/ticket/35218), but until the ticket moves forward this plugin takes its place.
+
+## License
+
 The MIT License (MIT)
 Copyright (c) 2016 Steve Grunwell
 
