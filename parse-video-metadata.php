@@ -75,12 +75,11 @@ function wp_get_media_creation_timestamp( $metadata ) {
 
 		case 'quicktime':
 		case 'mp4':
-			if ( isset( $metadata['quicktime']['moov']['subatoms']['0']['creation_time'] ) ) {
-				$creation_date = (int) $metadata['quicktime']['moov']['subatoms']['0']['creation_time'];
+			if ( isset( $metadata['quicktime']['moov']['subatoms']['0']['creation_time_unix'] ) ) {
+				$creation_date = (int) $metadata['quicktime']['moov']['subatoms']['0']['creation_time_unix'];
 			}
 		break;
 	}
 
 	return $creation_date;
 }
-
