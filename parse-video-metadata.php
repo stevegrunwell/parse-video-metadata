@@ -15,6 +15,15 @@
 namespace ParseVideoMetadata;
 
 /**
+ * This plugin is unnecessary once wp_get_media_creation_timestamp() is defined.
+ *
+ * @link https://core.trac.wordpress.org/attachment/ticket/35218
+ */
+if ( function_exists( '\wp_get_media_creation_timestamp' ) ) {
+	return;
+}
+
+/**
  * Retrieve the creation timestamp out of a video upon upload.
  *
  * @param array $metadata      An array of attachment meta data.
